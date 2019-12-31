@@ -1,23 +1,28 @@
-import React, { useState } from "react";
-import Input from "../presentational/Input.jsx";
-import SmallInput from "../presentational/SmallInput.jsx";
+import React from "react";
+import ServoAxisStepContainer from "./ServoAxisStepContainer.jsx";
+import Arrow from "../presentational/Arrow.jsx";
 
 function ServoControlsContainer() {
-    const [state, setState] = useState({
-        posX: 0,
-        posY: 0,
-        step: 5
-    });
-
-    let handleChange = (e) => {
-        setState({...state, [e.target.id]: e.target.value});
-    }
 
     return (
-        <div  className="container">
-            <SmallInput type="text" id="posX" value={state.posX.toString()} placeholder="X" handleChange={handleChange}/>
-            <SmallInput type="text" id="posY" value={state.posY.toString()} placeholder="Y" handleChange={handleChange}/>
-            <SmallInput type="text" id="step" value={state.step.toString()} placeholder="Step" handleChange={handleChange}/>
+        <div className = "container no-gutters" style={{width: '137px'}}>
+            <div className="row no-gutters">
+                <div className="col-sm" style={{textAlign: "center"}}><Arrow direction = 'up' /></div>
+            </div>
+            <div className="row no-gutters">
+                <div className="col-sm-1.5 my-auto" style={{textAlign: "right"}}>
+                    <Arrow direction = 'left'/>
+                </div>
+                <div className="col-sm" style={{textAlign: "center"}}>
+                    <ServoAxisStepContainer />
+                </div>
+                <div className="col-sm-1.5 my-auto" style={{textAlign: "left"}}>
+                    <Arrow direction = 'right'/>
+                </div>
+            </div>
+            <div className="row no-gutters">
+                <div className="col-sm" style={{textAlign: "center"}}><Arrow direction = 'down' /></div>
+            </div>
         </div>
     );
 }
