@@ -17,14 +17,14 @@ class FormContainer extends Component {
     this.photo = "camera"
 
     this.state = {
-      gain: undefined,
-      dim: undefined,
+      gain: 0,
+      dim: 0,
       toggle: {
         darkOn: false,
         lightOn: false
       }
     }; 
-    
+
     this.onClick = {
       photo: () => {
         alert('takePhoto');
@@ -39,12 +39,18 @@ class FormContainer extends Component {
   render() {
     return (
       <form id="camera-form">
-        <Icon id='photo' icon={this.photo} handleClick= {this.handleClick} />
-        <IconInput id='dim' type = "number" icon={this.dimIcon} value = {this.state.dim} handleChange = {this.handleInputChange} />
-        <IconInput id='gain' type = "number" icon={this.gainIcon} value = {this.state.gain} handleChange = {this.handleInputChange} />
-        <IconToggle id = 'darkOn' iconTrue = {this.darkOnTrue} iconFalse = {this.darkOnFalse} value = {this.state.toggle.darkOn} handleClick = {this.handleToggleClick}  />
-        <IconToggle id = 'lightOn' iconTrue = {this.lightOnTrue} iconFalse = {this.lightOnFalse} value = {this.state.toggle.lightOn} handleClick = {this.handleToggleClick}  />
+        <IconInput id='dim' type = "number" placeholder='Dim' icon={this.dimIcon} value = {this.state.dim} handleChange = {this.handleInputChange} />
+        <IconInput id='gain' type = "number" placeholder='Gain' icon={this.gainIcon} value = {this.state.gain} handleChange = {this.handleInputChange} />
+        <div className="btn-group">
+          <IconToggle id = 'darkOn' iconTrue = {this.darkOnTrue} iconFalse = {this.darkOnFalse} value = {this.state.toggle.darkOn} handleClick = {this.handleToggleClick}  />
+          <IconToggle id = 'lightOn' iconTrue = {this.lightOnTrue} iconFalse = {this.lightOnFalse} value = {this.state.toggle.lightOn} handleClick = {this.handleToggleClick}  />
+          <Icon id='photo' icon={this.photo} handleClick= {this.handleClick} />
+        </div>
         <ServoControlsContainer />
+        <audio controls>
+          <source src="audio" type="audio/x-wav;codec=pcm" />
+          Your browser does not support the audio element.
+        </audio>
       </form>
     );
   }

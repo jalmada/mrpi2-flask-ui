@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Icon = ({id, icon, handleClick}) => {
 
     return (
-        <span id={id} onClick={handleClick}>
-            <FontAwesomeIcon icon={icon} />
+        <span id={id} className="btn btn-light" onClick={handleClick}>
+            <FontAwesomeIcon icon={icon}  />
         </span>
     );
 }

@@ -5,7 +5,7 @@ import Arrow from "../presentational/Arrow.jsx";
 function ServoControlsContainer() {
 
     return (
-        <div className = "container no-gutters" style={{width: '137px'}}>
+        <div className = "container no-gutters" style={{width: '190px'}}>
             <div className="row no-gutters">
                 <div className="col-sm" style={{textAlign: "center"}}><Arrow direction = 'up' /></div>
             </div>

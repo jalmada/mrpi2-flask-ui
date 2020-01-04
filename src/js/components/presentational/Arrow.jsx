@@ -1,10 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Arrow = ({direction, handleClick}) => {
+const Arrow = ({id, direction, handleClick}) => {
 
     return (
-        <FontAwesomeIcon icon={"arrow-" + direction} />
+        <span id={id} className="btn btn-light" onClick={handleClick}>
+            <FontAwesomeIcon icon={"arrow-" + direction} />
+        </span>
     );
 };
 
