@@ -5,6 +5,13 @@ import IconToggle from "../presentational/IconToggle.jsx";
 import ServoControlsContainer from "./ServoControlsContainer.jsx";
 import TestImage from '../../../test.jpg';
 
+
+
+import Lights from '../../controllers/lights';
+import Servo from '../../controllers/servo';
+import StreamingCamera from '../../controllers/streamingCamera';
+
+
 class FormContainer extends Component {
   constructor() {
     super();
@@ -17,6 +24,8 @@ class FormContainer extends Component {
     this.lightOnFalse = ['fas', 'lightbulb'];
     this.photo = "camera"
 
+    this.streamingCamera = new StreamingCamera();
+
     this.state = {
       gain: 0,
       dim: 0,
@@ -28,10 +37,12 @@ class FormContainer extends Component {
 
     this.onClick = {
       photo: () => {
-        alert('takePhoto');
+        this.streamingCamera.takePicture();
       }
     }
 
+
+    
     this.handleInputChange = (e) => this.setState({...this.state, [e.currentTarget.id]:e.target.value});
     this.handleToggleClick = (e) => this.setState({...this.state, toggle: {...this.state.toggle, [e.currentTarget.id]: !this.state.toggle[e.currentTarget.id]}});
     this.handleClick = ((e) => this.onClick[e.currentTarget.id]()).bind(this);
@@ -61,10 +72,10 @@ class FormContainer extends Component {
               <div className="container-fluid">
                 <div className="row align-items-end">
                   <div className="col-3">
-                    <IconInput id='dim' type = "number" placeholder='Dim' icon={this.dimIcon} value = {this.state.dim} handleChange = {this.handleInputChange} />
+                    <IconInput id='dim' type = "number" placeholder='Dim' icon={this.dimIcon} value = {this.state.dim} handleChange = {this.handleInputChange} handleEnterClick={this.streamingCamera.setDim} />
                   </div>
                   <div className="col-3">
-                    <IconInput id='gain' type = "number" placeholder='Gain' icon={this.gainIcon} value = {this.state.gain} handleChange = {this.handleInputChange} />
+                    <IconInput id='gain' type = "number" placeholder='Gain' icon={this.gainIcon} value = {this.state.gain} handleChange = {this.handleInputChange} handleEnterClick={this.streamingCamera.setGain} />
                   </div>
                   <div className="col" style={{height:'54px', paddingRight:'0px'}}>
                     <audio controls className="float-right" style={{width:'150px'}}>

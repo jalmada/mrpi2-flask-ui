@@ -1,4 +1,4 @@
-import FormContainer from "./js/components/container/FormContainer.jsx";
+import FormContainer from "./components/container/FormContainer.jsx";
 import React from "react";
 
 import ReactDOM from "react-dom";
