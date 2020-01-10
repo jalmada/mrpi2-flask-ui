@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const IconInput = ({type, id, value, icon, placeholder, handleChange, handleEnterClick }) => {
   
+  
+
   let handleEnterClickWrapper = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
