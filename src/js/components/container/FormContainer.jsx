@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "../presentational/Icon.jsx";
 import IconInput from "../presentational/IconInput.jsx";
 import IconToggle from "../presentational/IconToggle.jsx";
@@ -15,8 +15,10 @@ import StreamingCamera from '../../controllers/streamingCamera';
 
 function FormContainer () {
 
-  const [gain, setGain] = useState('');
-  const [dim, setDim] = useState('');
+  let streamingCamera = new StreamingCamera();
+
+  const [gain, setGain] = useState(streamingCamera.getDim());
+  const [dim, setDim] = useState(streamingCamera.getGain());
   const [darkOn, setDarkOn] = useState(false);
   const [lightOn, setLightOn] = useState(false);
 
@@ -35,12 +37,16 @@ function FormContainer () {
   let lightOnFalse = ['fas', 'lightbulb'];
   let photo = "camera"
 
-  let streamingCamera = new StreamingCamera();
+  
 
   let handleInputChange = (e) => states[e.currentTarget.id].setter(e.target.value); 
   let handleToggleClick = (e) => states[e.currentTarget.id].setter(!states[e.currentTarget.id].state);
-
   let handleClick = (e) => {};
+
+  // useEffect(() => {
+  //   //streamingCamera.setDim(null, dim);
+  // },[dim]);
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-end">
