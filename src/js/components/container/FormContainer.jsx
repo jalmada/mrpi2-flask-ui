@@ -17,8 +17,8 @@ function FormContainer () {
 
   let streamingCamera = new StreamingCamera();
 
-  const [gain, setGain] = useState(streamingCamera.getDim());
-  const [dim, setDim] = useState(streamingCamera.getGain());
+  const [gain, setGain] = useState('');
+  const [dim, setDim] = useState('');
   const [darkOn, setDarkOn] = useState(false);
   const [lightOn, setLightOn] = useState(false);
 
@@ -37,15 +37,36 @@ function FormContainer () {
   let lightOnFalse = ['fas', 'lightbulb'];
   let photo = "camera"
 
-  
 
   let handleInputChange = (e) => states[e.currentTarget.id].setter(e.target.value); 
   let handleToggleClick = (e) => states[e.currentTarget.id].setter(!states[e.currentTarget.id].state);
   let handleClick = (e) => {};
+  let handleKeyPress = (e) => e.preventDefault();
 
-  // useEffect(() => {
-  //   //streamingCamera.setDim(null, dim);
-  // },[dim]);
+  useEffect(() => {
+    streamingCamera.getGain().then(x => setGain(x));
+    streamingCamera.getDim().then(x => setDim(x));
+  });
+
+  useEffect(() => {
+    const updateDim = async () => {
+      if(dim){
+        await streamingCamera.setDim(null, dim);
+      }
+
+    };
+    updateDim();
+  },[dim]);
+
+  useEffect(() => {
+    const updateGain = async () => {
+      if(gain){
+        await streamingCamera.setGain(null, gain);
+      }
+    };
+    updateGain();
+  },[gain]);
+
 
   return (
     <div className="container-fluid">
@@ -70,10 +91,10 @@ function FormContainer () {
             <div className="container-fluid">
               <div className="row align-items-end">
                 <div className="col-3">
-                  <IconInput id='dim' type = "number" placeholder='Dim' icon={dimIcon} value = {dim} handleChange = {handleInputChange} handleEnterClick={streamingCamera.setDim.bind(streamingCamera)} />
+                  <IconInput id='dim' type = "number" placeholder='Dim' icon={dimIcon} value = {dim} handleChange = {handleInputChange} handleKeyUp={streamingCamera.setDim.bind(streamingCamera)} handleKeyPress={handleKeyPress} />
                 </div>
                 <div className="col-3">
-                  <IconInput id='gain' type = "number" placeholder='Gain' icon={gainIcon} value = {gain} handleChange = {handleInputChange} handleEnterClick={streamingCamera.setGain.bind(streamingCamera)} />
+                  <IconInput id='gain' type = "number" placeholder='Gain' icon={gainIcon} value = {gain} handleChange = {handleInputChange} handleKeyUp={streamingCamera.setGain.bind(streamingCamera)} handleKeyPress={handleKeyPress}/>
                 </div>
                 <div className="col" style={{height:'54px', paddingRight:'0px'}}>
                   <audio controls className="float-right" style={{width:'150px'}}>

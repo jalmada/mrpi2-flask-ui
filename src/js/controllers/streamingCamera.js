@@ -21,10 +21,9 @@ class StreamingCamera {
       });
   }
 
-  async setDim(direction, dim){
-    this.dim = await axios.post(`${this.url}/dim`, {direction: direction, dim: dim})
+  setDim(direction, dim){
+    return axios.post(`${this.url}/dim`, {direction: direction, dim: dim})
       .then(function (response) {
-        document.getElementById("dim").value = response.data.currentDim;
         console.log(response);
         return response.data.currentDim;
       })
@@ -35,10 +34,9 @@ class StreamingCamera {
 
   
 
-  async getDim(){
-    this.dim = await axios.get(`${this.url}/dim`)
+  getDim(){
+    return axios.get(`${this.url}/dim`)
       .then(function (response) {
-        document.getElementById("dim").value = response.data.currentDim;
         console.log(response);
         return response.data.currentDim;
       })
@@ -47,10 +45,9 @@ class StreamingCamera {
     });
   }
   
-  async getGain(){
-    this.gain = await axios.get(`${this.url}/gain`)
+  getGain(){
+    return axios.get(`${this.url}/gain`)
       .then(function (response) {
-        document.getElementById("gain").value = response.data.currentGain;
         console.log(response);
         return response.data.currentGain;
       })
@@ -62,7 +59,6 @@ class StreamingCamera {
   async setGain(direction, gain){
     this.dim = await axios.post(`${this.url}/gain`, {direction: direction, gain: gain})
       .then(function (response) {
-        document.getElementById("gain").value = response.data.currentGain;
         console.log(response);
         return response.data.currentGain;
       })

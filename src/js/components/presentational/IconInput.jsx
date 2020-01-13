@@ -1,18 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const IconInput = ({type, id, value, icon, placeholder, handleChange, handleEnterClick }) => {
-  
-  
+const IconInput = ({type, id, value, icon, placeholder, handleChange, handleKeyPress }) => {
 
-  let handleEnterClickWrapper = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      if(handleEnterClick){
-        handleEnterClick(null, value);
-      }
-    }
-  }
   return (
     <div className="input-group input-group-sm addon">
       <span className="btn btn-light input-group-addon">
@@ -26,8 +16,8 @@ const IconInput = ({type, id, value, icon, placeholder, handleChange, handleEnte
         value={value}
         alt={placeholder} 
         placeholder={placeholder} 
+        onKeyPress={handleKeyPress}
         onChange={handleChange}
-        onKeyUp={handleEnterClickWrapper}
       />
     </div>    
   )
