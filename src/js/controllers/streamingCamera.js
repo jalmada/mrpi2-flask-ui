@@ -12,7 +12,7 @@ class StreamingCamera {
   }
 
   takePicture(){
-      axios.get('/photo')
+      axios.get(`${this.url}/photo`)
         .then(function (response) {
           console.log(response);
         })

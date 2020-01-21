@@ -16,7 +16,7 @@ const IconInput = ({type, id, value, icon, placeholder, handleChange, handleKeyP
         value={value}
         alt={placeholder} 
         placeholder={placeholder} 
-        onKeyPress={handleKeyPress}
+        onKeyPress={(e) => e.preventDefault()}
         onChange={handleChange}
       />
     </div>    

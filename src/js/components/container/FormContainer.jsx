@@ -37,36 +37,33 @@ function FormContainer () {
   let lightOnFalse = ['fas', 'lightbulb'];
   let photo = "camera"
 
-
-  let handleInputChange = (e) => states[e.currentTarget.id].setter(e.target.value); 
   let handleToggleClick = (e) => states[e.currentTarget.id].setter(!states[e.currentTarget.id].state);
-  let handleClick = (e) => {};
-  let handleKeyPress = (e) => e.preventDefault();
 
   useEffect(() => {
     streamingCamera.getGain().then(x => setGain(x));
     streamingCamera.getDim().then(x => setDim(x));
-  });
+  },[]);
 
-  useEffect(() => {
-    const updateDim = async () => {
-      if(dim){
-        await streamingCamera.setDim(null, dim);
-      }
+  let handlePhotoClick = async (e) => {
+    await streamingCamera.takePicture(); 
+  }
 
-    };
-    updateDim();
-  },[dim]);
 
-  useEffect(() => {
-    const updateGain = async () => {
-      if(gain){
-        await streamingCamera.setGain(null, gain);
-      }
-    };
-    updateGain();
-  },[gain]);
+  let handleDimChange = async (e) => {
+    let dim = e.target.value;
+    if(dim){
+    setDim(dim);
+      await streamingCamera.setDim(null, e.target.value); 
+    }
+  }
 
+  let handleGainChange = async (e) => {
+    let gain = e.target.value;
+    if(gain){
+    setGain(gain);
+      await streamingCamera.setGain(null, e.target.value); 
+    }
+  }
 
   return (
     <div className="container-fluid">
@@ -75,7 +72,7 @@ function FormContainer () {
           <div className="btn-group float-right">
             <IconToggle id = 'darkOn' iconTrue = {darkOnTrue} iconFalse = {darkOnFalse} value = {darkOn} handleClick = {handleToggleClick}  />
             <IconToggle id = 'lightOn' iconTrue = {lightOnTrue} iconFalse = {lightOnFalse} value = {lightOn} handleClick = {handleToggleClick}  />
-            <Icon id='photo' icon={photo} handleClick= {handleClick} />
+            <Icon id='photo' icon={photo} handleClick= {handlePhotoClick} />
           </div>
         </div>
       </div>
@@ -91,10 +88,10 @@ function FormContainer () {
             <div className="container-fluid">
               <div className="row align-items-end">
                 <div className="col-3">
-                  <IconInput id='dim' type = "number" placeholder='Dim' icon={dimIcon} value = {dim} handleChange = {handleInputChange} handleKeyUp={streamingCamera.setDim.bind(streamingCamera)} handleKeyPress={handleKeyPress} />
+                  <IconInput id='dim' type = "number" placeholder='Dim' icon={dimIcon} value = {dim} handleChange = {handleDimChange} />
                 </div>
                 <div className="col-3">
-                  <IconInput id='gain' type = "number" placeholder='Gain' icon={gainIcon} value = {gain} handleChange = {handleInputChange} handleKeyUp={streamingCamera.setGain.bind(streamingCamera)} handleKeyPress={handleKeyPress}/>
+                  <IconInput id='gain' type = "number" placeholder='Gain' icon={gainIcon} value = {gain} handleChange = {handleGainChange} />
                 </div>
                 <div className="col" style={{height:'54px', paddingRight:'0px'}}>
                   <audio controls className="float-right" style={{width:'150px'}}>
