@@ -1,10 +1,10 @@
 import axios from 'axios';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 
 class Servo {
     constructor(){
         this.servoNamespace = '/servo';
-        this.socket = io(servoNamespace);
+        //this.socket = io(servoNamespace);
 
         this.currentX = 0;
         this.currentY = 0;
@@ -14,7 +14,7 @@ class Servo {
     moveServo (xd, xs, yd, ys){ 
      // Set the timer reference
       this.timer = setInterval(function() {
-      socket.emit('move', {xstep: xd * xs, ystep: yd * ys});
+      //socket.emit('move', {xstep: xd * xs, ystep: yd * ys});
      }, 1000);
     }
     

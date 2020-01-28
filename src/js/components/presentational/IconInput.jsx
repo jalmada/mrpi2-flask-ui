@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const IconInput = ({type, id, value, icon, placeholder, handleChange, handleKeyPress }) => {
+const IconInput = ({type, id, value, icon, placeholder, handleChange, handleKeyPress, max, min }) => {
 
   return (
     <div className="input-group input-group-sm addon">
@@ -18,6 +18,8 @@ const IconInput = ({type, id, value, icon, placeholder, handleChange, handleKeyP
         placeholder={placeholder} 
         onKeyPress={(e) => e.preventDefault()}
         onChange={handleChange}
+        max = {max}
+        min = {min}
       />
     </div>    
   )
