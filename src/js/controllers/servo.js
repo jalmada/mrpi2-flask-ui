@@ -1,21 +1,25 @@
 import axios from 'axios';
-//import io from 'socket.io-client';
+import io from 'socket.io-client';
 
 class Servo {
     constructor(){
-        this.servoNamespace = '/servo';
-        //this.socket = io(servoNamespace);
+      this.host = 'http://192.168.1.103';
+      this.port = '3000';
+      this.url = `${this.host}:${this.port}`;
 
-        this.currentX = 0;
-        this.currentY = 0;
-        this.timer = null;
+      this.servoNamespace = `${this.url}/servo`;
+      this.socket = io(this.servoNamespace);
+
+      this.currentX = 0;
+      this.currentY = 0;
+      this.timer = null;
     }
 
     moveServo (xd, xs, yd, ys){ 
      // Set the timer reference
       this.timer = setInterval(function() {
-      //socket.emit('move', {xstep: xd * xs, ystep: yd * ys});
-     }, 1000);
+      this.socket.emit('move', {xstep: xd * xs, ystep: yd * ys});
+     }.bind(this), 500);
     }
     
     stopServo (event){ 
@@ -33,16 +37,16 @@ class Servo {
         });
       }
 
-      moveY(y){
-        currentY = y;
-        axios.post('/move', {x: currentX, y: y})
-          .then(function (response) {
-            console.log(response);
-          })
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
+    moveY(y){
+      currentY = y;
+      axios.post('/move', {x: currentX, y: y})
+        .then(function (response) {
+          console.log(response);
+        })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
 }
 
 export default Servo;
