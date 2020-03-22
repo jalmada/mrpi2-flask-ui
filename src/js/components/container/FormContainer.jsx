@@ -10,7 +10,7 @@ import StreamingCamera from '../../controllers/streamingCamera';
 
 function FormContainer () {
 
-  let host = 'http://192.168.1.103';
+  let host = 'http://localhost';
   let port = '3000';
   let url = `${host}:${port}`;
 
@@ -19,11 +19,31 @@ function FormContainer () {
   let videoInput = `${url}/stream.mjpg`
   let audioInput = `${url}/audio`
 
+  const [stepX, setStepX] = useState(5);
+  const [stepY, setStepY] = useState(5);
+
+  useEffect(() => {
+    servo.getStep().then(data => {
+      setStepX(data.xstep);
+      setStepY(data.ystep);
+    });
+    
+  },[]);
+
   let photo = "camera"
 
   let handlePhotoClick = async (e) => {
     await streamingCamera.takePicture(); 
   } 
+
+  let handleStepChange = async (e) => {
+    let step = e.target.value;
+    if(step){
+      setStepX(step);
+      setStepY(step);
+      await servo.setStep(step, step); 
+    }
+  }
 
   return (
     <div className="container-fluid">
@@ -40,7 +60,7 @@ function FormContainer () {
       <div className="row align-items-end" style={{padding: '5px'}}>
         <div style={{display:'table', width:'100%', height:'100%'}}>
           <div style={{display:'table-cell', verticalAlign:'bottom'}}>
-            <ServoControlsContainer onmousedown={servo.moveServo.bind(servo)} onmouseup={servo.stopServo.bind(servo)} />
+            <ServoControlsContainer stepx={stepX} stepy={stepY} onmousedown={servo.moveServo.bind(servo)} onmouseup={servo.stopServo.bind(servo)} handleStepChange={handleStepChange} />
           </div>
           <div style={{display:'table-cell', verticalAlign:'bottom'}}>
             <div className="container-fluid">

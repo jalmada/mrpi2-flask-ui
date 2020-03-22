@@ -6,7 +6,7 @@ class StreamingCamera {
     this.gain = 0;
     this.dim = 0;
 
-    this.host = 'http://192.168.1.103';
+    this.host = 'http://localhost';
     this.port = '3000';
     this.url = `${this.host}:${this.port}`;
   }

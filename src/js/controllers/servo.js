@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 class Servo {
     constructor(){
-      this.host = 'http://192.168.1.103';
+      this.host = 'http://locahost';
       this.port = '3000';
       this.url = `${this.host}:${this.port}`;
 
@@ -24,6 +24,28 @@ class Servo {
     
     stopServo (event){ 
       clearInterval(this.timer);
+    }
+
+    getStep(){
+      return axios.get(`${this.url}/step`)
+          .then(function (response) {
+            console.log(response);
+            return response.data;
+          })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    setStep(stepx, stepy){
+      return axios.post(`${this.url}/step`, {xstep: stepx, ystep: stepy})
+        .then(function (response) {
+          console.log(response);
+          return response.data;
+        })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
 
     moveX(x){

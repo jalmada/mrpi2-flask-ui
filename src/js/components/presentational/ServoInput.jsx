@@ -4,9 +4,9 @@ const ServoInput = ({ type, id, value, placeholder, handleChange, handleEnterCli
 
     let handleEnterClickWrapper = (e) => {
         if (e.keyCode === 13) {
-          e.preventDefault();
+          //e.preventDefault();
           if(handleEnterClick){
-            handleEnterClick(null, value);
+            handleEnterClick(value);
           }
         }
       }
@@ -20,7 +20,6 @@ const ServoInput = ({ type, id, value, placeholder, handleChange, handleEnterCli
             value={value} 
             placeholder={placeholder} 
             onChange={handleChange} 
-            onKeyUp={handleEnterClickWrapper}
             alt={placeholder} 
         />
     );
