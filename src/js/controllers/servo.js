@@ -3,7 +3,8 @@ import io from 'socket.io-client';
 
 class Servo {
     constructor(){
-      this.host = 'http://locahost';
+      //this.host = 'http://locahost';
+      this.host = 'http://192.168.1.103';
       this.port = '3000';
       this.url = `${this.host}:${this.port}`;
 
@@ -27,6 +28,7 @@ class Servo {
     }
 
     getStep(){
+      console.log("getting step");
       return axios.get(`${this.url}/step`)
           .then(function (response) {
             console.log(response);
@@ -38,6 +40,7 @@ class Servo {
     }
 
     setStep(stepx, stepy){
+
       return axios.post(`${this.url}/step`, {xstep: stepx, ystep: stepy})
         .then(function (response) {
           console.log(response);

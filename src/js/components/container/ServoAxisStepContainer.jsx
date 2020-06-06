@@ -6,7 +6,6 @@ function ServoAxisStepContainer({stepx, stepy, handleStepChange}) {
     });
 
     let handleChange = (e) => {
-        alert(e.target.value);
         setState({...state, [e.target.id]: e.target.value});
     }
 

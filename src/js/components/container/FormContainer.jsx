@@ -10,7 +10,8 @@ import StreamingCamera from '../../controllers/streamingCamera';
 
 function FormContainer () {
 
-  let host = 'http://localhost';
+  //let host = 'http://localhost';
+  let host = 'http://192.168.1.103';
   let port = '3000';
   let url = `${host}:${port}`;
 
@@ -23,9 +24,9 @@ function FormContainer () {
   const [stepY, setStepY] = useState(5);
 
   useEffect(() => {
-    servo.getStep().then(data => {
-      setStepX(data.xstep);
-      setStepY(data.ystep);
+    servo.getStep().then(data => { 
+      setStepX(data ? data.xstep : 5);
+      setStepY(data ? data.ystep : 5);
     });
     
   },[]);
